@@ -17,7 +17,7 @@ router.post('/users', async (req, res) => {
     }
 });
 
-// Listando todos os usuários do banco simulado
+// Listando todos os usuários do banco de dados simulado
 router.get('/users', async (req, res) => {
     try {
         const users = await User.find({});
