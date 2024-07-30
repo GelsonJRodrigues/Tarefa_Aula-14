@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('./user');
+const user = require('../user.js');
 
 const router = express.Router();
 
@@ -8,9 +8,9 @@ router.post('/users', async (req, res) => {
     const { nome, email, idade, sexo } = req.body;
 
     try {
-        const user = new User({ nome, email, idade, sexo });
-        await user.save();
-        res.send(user);
+        const users = new user({ nome, email, idade, sexo });
+        await users.save();
+        res.send(users);
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
@@ -20,7 +20,7 @@ router.post('/users', async (req, res) => {
 // Listando todos os usuários do banco de dados
 router.get('/users', async (req, res) => {
     try {
-        const users = await User.find({});
+        const users = await user.find({});
         res.send(users);
     } catch (error) {
         console.error(error);
@@ -34,8 +34,8 @@ router.put('/users/:id', async (req, res) => {
     const { nome, email, idade, sexo } = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate(id, { nome, email, idade, sexo }, { new: true });
-        res.send(user);
+        const users = await user.findByIdAndUpdate(id, { nome, email, idade, sexo }, { new: true });
+        res.send(users);
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
@@ -47,8 +47,8 @@ router.delete('/users/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const user = await User.findByIdAndDelete(id);
-        res.send(user);
+        const users = await user.findByIdAndDelete(id);
+        res.send(users);
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
